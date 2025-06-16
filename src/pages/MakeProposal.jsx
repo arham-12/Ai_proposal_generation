@@ -28,10 +28,17 @@ const MakeProposal = () => {
 
       const response = await axios.post(
         'https://isfpdpx519.execute-api.eu-north-1.amazonaws.com/lambda-invokation/generateProposalLambda',
-        payload
+        {
+          job_description: description,
+          client_name: clientName.trim() || undefined
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      }
       )
       console.log(payload);
-      
+
       if (response.data && response.data.proposal) {
         setProposal(response.data.proposal)
       } else {
@@ -90,11 +97,10 @@ const MakeProposal = () => {
           <button
             onClick={handleCreateProposal}
             disabled={loading || !description.trim()}
-            className={`w-full py-3 rounded-xl text-lg font-semibold transition duration-200 ${
-              loading || !description.trim()
+            className={`w-full py-3 rounded-xl text-lg font-semibold transition duration-200 ${loading || !description.trim()
                 ? 'bg-gray-400 cursor-not-allowed text-white'
                 : 'bg-blue-600 hover:bg-blue-700 text-white'
-            }`}
+              }`}
           >
             {loading ? (
               <div className="flex items-center justify-center gap-2">
