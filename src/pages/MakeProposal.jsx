@@ -30,7 +30,8 @@ const MakeProposal = () => {
         'https://isfpdpx519.execute-api.eu-north-1.amazonaws.com/lambda-invokation/generateProposalLambda',
         payload
       )
-
+      console.log(payload);
+      
       if (response.data && response.data.proposal) {
         setProposal(response.data.proposal)
       } else {
